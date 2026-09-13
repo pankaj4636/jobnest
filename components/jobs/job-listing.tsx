@@ -1,21 +1,30 @@
 "use client";
 
 import { useSetAtom } from "jotai";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { jobDataAtom } from "@/atoms/job-data";
+import { jobDataAtom, searchQueryAtom, filteredJobsAtom } from "@/atoms/job-data";
 import { useInfiniteJobs } from "@/services/job-listing";
 import JobCardSkeleton from "../ui/job-card-skeleton";
 import JobCard from "./job-card";
 import { Job } from "@/types/jobs";
 import { useAtomValue } from "jotai";
-import { filteredJobsAtom } from "@/atoms/job-data";
 
 export default function JobListing() {
 
   const setJobData = useSetAtom(jobDataAtom);
   const filteredJobs = useAtomValue(filteredJobsAtom);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const searchQuery = useAtomValue(searchQueryAtom);
+  
+  const [debouncedQuery, setDebouncedQuery] = useState(searchQuery);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
 
   const {
     data,
@@ -25,7 +34,7 @@ export default function JobListing() {
     status,
     isPending,
     error,
-  } = useInfiniteJobs();
+  } = useInfiniteJobs(debouncedQuery);
 
   useEffect(() => {
     if (!data) return;
