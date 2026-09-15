@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  name      String?
+  bookmarks Bookmark[]
+  createdAt DateTime   @default(now())
+}
+
+model Bookmark {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobId     String   // The Adzuna Job ID
+  createdAt DateTime @default(now())
+
+  @@unique([userId, jobId])
+}
+
+model SearchHistory {
+  id        String   @id @default(uuid())
+  query     String
+  createdAt DateTime @default(now())
+}
+
+model Company {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  logoUrl   String
+  createdAt DateTime @default(now())
+}
