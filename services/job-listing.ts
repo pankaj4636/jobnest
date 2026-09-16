@@ -19,18 +19,34 @@ async function fetchJobs({ pageParam, queryKey }: QueryFunctionContext): Promise
 
   const adzunaJobs = res.data.results || [];
   
-  const mappedJobs: Job[] = adzunaJobs.map((job: any) => ({
-    slug: job.id.toString(),
-    title: job.title,
-    company_name: job.company?.display_name || "Unknown Company",
-    location: job.location?.display_name || "Remote",
-    job_types: [], 
-    tags: [job.category?.label].filter(Boolean),
-    remote: job.location?.display_name?.toLowerCase().includes("remote") || false,
-    description: job.description,
-    url: job.redirect_url,
-    created_at: new Date(job.created).getTime() / 1000,
-  }));
+  const mappedJobs: Job[] = adzunaJobs.map((job: any) => {
+    const types: string[] = [];
+    
+    if (job.contract_time === 'full_time') types.push('Full-time');
+    if (job.contract_time === 'part_time') types.push('Part-time');
+    if (job.contract_type === 'contract') types.push('Contract');
+    
+    const titleLower = (job.title || "").toLowerCase();
+    if (titleLower.includes('intern') || titleLower.includes('internship')) types.push('Internship');
+    if (titleLower.includes('freelance')) types.push('Freelance');
+    
+    if (job.contract_type === 'permanent' && !types.includes('Part-time') && !types.includes('Full-time')) {
+      types.push('Full-time');
+    }
+
+    return {
+      slug: job.id.toString(),
+      title: job.title,
+      company_name: job.company?.display_name || "Unknown Company",
+      location: job.location?.display_name || "Remote",
+      job_types: types,
+      tags: [job.category?.label].filter(Boolean),
+      remote: job.location?.display_name?.toLowerCase().includes("remote") || titleLower.includes("remote") || (job.description || "").toLowerCase().includes("remote") || false,
+      description: job.description,
+      url: job.redirect_url,
+      created_at: new Date(job.created).getTime() / 1000,
+    };
+  });
 
   return {
     data: mappedJobs,
