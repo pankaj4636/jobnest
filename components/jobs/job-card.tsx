@@ -77,20 +77,6 @@ export default function JobCard({ job }: JobCardProps) {
         </div>
       </div>
 
-      {/* Right Pane - Match Score (NextRaise Style) */}
-      <div className="w-full md:w-64 bg-slate-900 rounded-b-2xl md:rounded-r-2xl md:rounded-bl-none p-6 flex flex-col items-center justify-center text-center gap-3 relative overflow-hidden group">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-        <div className="w-10 h-10 rounded-full border border-slate-700 bg-slate-800/50 flex items-center justify-center text-slate-300">
-          <Lock className="w-4 h-4" />
-        </div>
-        <div>
-          <p className="text-sm font-medium text-slate-200">Match score</p>
-          <p className="text-xs text-slate-400 mt-1 hover:text-blue-400 cursor-pointer underline decoration-slate-600 underline-offset-2">
-            Sign up to see your match
-          </p>
-        </div>
-      </div>
-
     </div>
   );
 }
