@@ -37,7 +37,9 @@ export function Footer() {
         <div className="mt-6 pt-6 border-t border-border/20 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
           <p>© {currentYear} JobNest. All rights reserved.</p>
           <p className="flex items-center gap-1">
-            Built with Next.js & Tailwind CSS
+            Built with{" "}
+            <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500 inline-block" />{" "}
+            using Next.js & Tailwind CSS
           </p>
         </div>
       </div>
