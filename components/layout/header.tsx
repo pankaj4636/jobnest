@@ -7,31 +7,40 @@ import { Briefcase, LayoutDashboard, Bell } from "lucide-react";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-background border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto max-w-[1400px] px-4 flex h-16 items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center">
-            <span className="text-xl font-bold tracking-tight">JobNest</span>
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
+      <div className="container mx-auto flex h-16 max-w-[1400px] items-center justify-between px-4">
+        <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600/10 text-emerald-600 dark:text-emerald-400">
+              <Briefcase className="h-4 w-4" />
+            </div>
+            <span className="text-lg font-bold tracking-tight text-foreground">JobNest</span>
           </Link>
-          <div className="ml-8 hidden md:flex items-center gap-2">
-            <Button variant="ghost" className="rounded-full px-4 h-9 bg-secondary/50 text-foreground flex items-center gap-2 hover:bg-secondary">
-              <Briefcase className="w-4 h-4" />
-              Jobs
+
+          <nav className="ml-8 hidden items-center gap-2 md:flex">
+            <Button variant="ghost" className="h-9 rounded-full bg-secondary/60 px-4 text-foreground hover:bg-secondary">
+              <Briefcase className="h-4 w-4" />
+              <span className="font-medium">Jobs</span>
             </Button>
-            <Button variant="ghost" className="rounded-full px-4 h-9 text-muted-foreground flex items-center gap-2 hover:bg-secondary/50 hover:text-foreground">
-              <LayoutDashboard className="w-4 h-4" />
-              Job Tracker
+            <Button variant="ghost" className="h-9 rounded-full px-4 text-muted-foreground hover:bg-secondary/50 hover:text-foreground">
+              <LayoutDashboard className="h-4 w-4" />
+              <span className="font-medium">Job Tracker</span>
             </Button>
-            <Button variant="ghost" className="rounded-full px-4 h-9 text-muted-foreground flex items-center gap-2 hover:bg-secondary/50 hover:text-foreground">
-              <Bell className="w-4 h-4" />
-              Alerts
+            <Button variant="ghost" className="h-9 rounded-full px-4 text-muted-foreground hover:bg-secondary/50 hover:text-foreground">
+              <Bell className="h-4 w-4" />
+              <span className="font-medium">Alerts</span>
             </Button>
-          </div>
+          </nav>
         </div>
-        <div className="flex items-center gap-4">
+
+        <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Button variant="ghost" className="hidden sm:inline-flex rounded-full hover:bg-secondary/50">Log in</Button>
-          <Button className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white border-none shadow-none font-medium">Sign up free</Button>
+          <Button variant="ghost" className="hidden rounded-full px-3 hover:bg-secondary/50 sm:inline-flex">
+            Log in
+          </Button>
+          <Button className="rounded-full bg-emerald-600 px-4 text-sm font-medium text-white shadow-sm transition-colors hover:bg-emerald-700">
+            Sign up free
+          </Button>
         </div>
       </div>
     </header>
