@@ -33,6 +33,7 @@ export function JobSearchFilters() {
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
         <Input
+          aria-label="Search jobs by title or company"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search title or company..."
@@ -51,6 +52,7 @@ export function JobSearchFilters() {
             <button
               key={type}
               onClick={() => toggleType(type)}
+              aria-pressed={isActive}
               className={`flex items-center gap-1.5 px-4 h-9 rounded-full text-sm font-medium transition-all duration-200 border ${
                 isActive 
                   ? "bg-primary text-primary-foreground border-primary shadow-sm" 
@@ -65,6 +67,7 @@ export function JobSearchFilters() {
 
         <button
           onClick={() => setRemoteOnly((prev) => !prev)}
+          aria-pressed={remoteOnly}
           className={`flex items-center gap-1.5 px-4 h-9 rounded-full text-sm font-medium transition-all duration-200 border ${
             remoteOnly 
               ? "bg-primary text-primary-foreground border-primary shadow-sm" 

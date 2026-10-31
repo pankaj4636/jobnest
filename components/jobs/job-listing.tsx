@@ -39,8 +39,6 @@ export default function JobListing() {
   useEffect(() => {
     if (!data) return;
 
-    console.log(data, "smaple data");
-
     const allJobs: Job[] = data.pages.flatMap((page) => page.data);
     setJobData(allJobs);
   }, [data, setJobData]);
@@ -69,9 +67,13 @@ export default function JobListing() {
 
   return (
     <div className="flex flex-col gap-4">
-      {filteredJobs.map((job,index) => (
-        <JobCard key={`${job.slug}-${index}`} job={job} />
-      ))}
+      {filteredJobs.length === 0 ? (
+        <p className="rounded-xl border border-border/50 bg-card px-6 py-10 text-center text-muted-foreground">
+          No jobs match your search. Try adjusting your search or filters.
+        </p>
+      ) : (
+        filteredJobs.map((job) => <JobCard key={job.slug} job={job} />)
+      )}
 
       {hasNextPage && (
         <div ref={loadMoreRef} className="h-10 w-full flex justify-center">
